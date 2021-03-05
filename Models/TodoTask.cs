@@ -13,12 +13,10 @@ namespace TodoManager.Models
         public string Description { get; set; }
         [Required]
         public bool IsCompleted { get; set; }
-        public DateTime CreatedOn { get; set; }
-        [Required]
-        public DateTime DueDate { get; set; }
+        public DateTime CreatedOn { get; set; } = DateTime.Now;
+        public DateTime DueDate { get; set; } = DateTime.Now.Add(new TimeSpan(3,0,0));
         [Required]
         public int PersonID { get; set; }
-        [NotMapped]
         public Person AssignedUser { get; set; }
     }
 }

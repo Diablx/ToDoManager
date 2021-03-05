@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using TodoManager.Data;
@@ -9,9 +10,10 @@ using TodoManager.Data;
 namespace TodoManager.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    partial class TodoContextModelSnapshot : ModelSnapshot
+    [Migration("20210305105249_work-migration")]
+    partial class workmigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,20 +69,7 @@ namespace TodoManager.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PersonID");
-
                     b.ToTable("TodoTasks");
-                });
-
-            modelBuilder.Entity("TodoManager.Models.TodoTask", b =>
-                {
-                    b.HasOne("TodoManager.Models.Person", "AssignedUser")
-                        .WithMany()
-                        .HasForeignKey("PersonID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("AssignedUser");
                 });
 #pragma warning restore 612, 618
         }
