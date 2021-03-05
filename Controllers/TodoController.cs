@@ -4,6 +4,7 @@ using TodoManager.Data;
 using TodoManager.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace TodoManager.Controllers
 {
@@ -39,9 +40,22 @@ namespace TodoManager.Controllers
         public ActionResult<TodoTask> Add(TodoTask todo)
         {
             _repository.Add(todo);
-            _repository.SaveChanges();
+            _repository.RepoSaveChanges();
 
             return Ok(todo);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<TodoTask>> Put(int id, TodoTask todoItem)
+        {
+            if(id != todoItem.ID)
+            {
+                return BadRequest();
+            }
+                await _repository.RepoUpdate(id, todoItem);
+                await _repository.RepoSaveChangesAsync();
+
+            return Ok(todoItem);
         }
     }
 }
