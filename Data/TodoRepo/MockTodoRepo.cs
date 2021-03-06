@@ -45,7 +45,12 @@ namespace TodoManager.Data
             throw new NotImplementedException();
         }
 
-        Task ITodoRepo.RepoUpdate(int id)
+        Task ITodoRepo.RepoUpdateCompleted(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(int id)
         {
             throw new NotImplementedException();
         }

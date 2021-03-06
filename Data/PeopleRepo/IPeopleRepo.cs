@@ -8,5 +8,8 @@ namespace TodoManager.Data.PeopleRepo
     {
         Task<ICollection<Person>> Get();
         Task<Person> GetPersonByID(int id);
+        void Add(Person person);
+        Task RepoSaveChangesAsync();
+        bool RepoSaveChanges();
     }
 }

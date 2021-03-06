@@ -28,5 +28,14 @@ namespace TodoManager.Controllers
         {
             return Ok(await _repository.GetPersonByID(id));
         }
+
+        [HttpPost]
+        public ActionResult<Person> Add(Person person)
+        {
+            _repository.Add(person);
+             _repository.RepoSaveChanges();
+
+            return Ok(person);
+        }
     }
 }

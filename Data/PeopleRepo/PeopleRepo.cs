@@ -22,5 +22,23 @@ namespace TodoManager.Data.PeopleRepo
         {
             return await _context.People.FirstOrDefaultAsync(p => p.ID == id);
         }
+
+        public void Add(Person person)
+        {
+            var newPerson = person;
+            _context.People.Add(newPerson);
+            
+            return;
+        }
+
+        public async Task RepoSaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public bool RepoSaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
     }
 }

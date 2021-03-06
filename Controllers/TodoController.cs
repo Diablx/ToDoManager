@@ -32,7 +32,8 @@ namespace TodoManager.Controllers
         }
 
         [HttpGet("person/{person_id}")]
-        public async Task<ActionResult<ICollection<TodoTask>>> GetTasksByAssignedUser(int person_id){
+        public async Task<ActionResult<ICollection<TodoTask>>> GetTasksByAssignedUser(int person_id)
+        {
             return Ok(await _repository.GetTodosByAssignedUser(person_id));
         }
 
@@ -46,9 +47,18 @@ namespace TodoManager.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<TodoTask>> Put(int id)
+        public async Task<ActionResult<TodoTask>> PutCompleted(int id)
         {
-            await _repository.RepoUpdate(id);
+            await _repository.RepoUpdateCompleted(id);
+            await _repository.RepoSaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<TodoTask>> Remove(int id)
+        {
+            _repository.Remove(id);
             await _repository.RepoSaveChangesAsync();
 
             return Ok();
