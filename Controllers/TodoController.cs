@@ -4,6 +4,7 @@ using TodoManager.Data;
 using TodoManager.Models;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace TodoManager.Controllers
 {
@@ -31,7 +32,8 @@ namespace TodoManager.Controllers
         }
 
         [HttpGet("person/{person_id}")]
-        public async Task<ActionResult<ICollection<TodoTask>>> GetTasksByAssignedUser(int person_id){
+        public async Task<ActionResult<ICollection<TodoTask>>> GetTasksByAssignedUser(int person_id)
+        {
             return Ok(await _repository.GetTodosByAssignedUser(person_id));
         }
 
@@ -39,9 +41,27 @@ namespace TodoManager.Controllers
         public ActionResult<TodoTask> Add(TodoTask todo)
         {
             _repository.Add(todo);
-            _repository.SaveChanges();
+            _repository.RepoSaveChanges();
 
             return Ok(todo);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<ActionResult<TodoTask>> PutCompleted(int id)
+        {
+            await _repository.RepoUpdateCompleted(id);
+            await _repository.RepoSaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<TodoTask>> Remove(int id)
+        {
+            _repository.Remove(id);
+            await _repository.RepoSaveChangesAsync();
+
+            return Ok();
         }
     }
 }
