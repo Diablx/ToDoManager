@@ -46,7 +46,7 @@ namespace TodoManager.Controllers
             return Ok(todo);
         }
 
-        [HttpPut("{id}")]
+        [HttpPatch("{id}")]
         public async Task<ActionResult<TodoTask>> PutCompleted(int id)
         {
             await _repository.RepoUpdateCompleted(id);
