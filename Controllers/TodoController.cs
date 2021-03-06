@@ -46,16 +46,12 @@ namespace TodoManager.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<TodoTask>> Put(int id, TodoTask todoItem)
+        public async Task<ActionResult<TodoTask>> Put(int id)
         {
-            if(id != todoItem.ID)
-            {
-                return BadRequest();
-            }
-                await _repository.RepoUpdate(id, todoItem);
-                await _repository.RepoSaveChangesAsync();
+            await _repository.RepoUpdate(id);
+            await _repository.RepoSaveChangesAsync();
 
-            return Ok(todoItem);
+            return Ok();
         }
     }
 }

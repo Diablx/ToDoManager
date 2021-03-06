@@ -10,6 +10,9 @@ namespace TodoManager.Data
          Task<TodoTask> GetTodoByID(int id);
          Task<ICollection<TodoTask>> GetTodosByAssignedUser(int person_id);
          void Add(TodoTask task);
-         bool SaveChanges();
+         bool RepoSaveChanges();
+         Task RepoUpdate(int id);
+         Task RepoSaveChangesAsync();
+
     }
 }

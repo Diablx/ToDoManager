@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using TodoManager.Data;
+using TodoManager.Data.PeopleRepo;
 
 namespace TodoManager
 {
@@ -28,7 +29,11 @@ namespace TodoManager
         {
             services.AddControllers().AddNewtonsoftJson(options => 
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            //todo repository
             services.AddScoped<ITodoRepo, PgsqlTodoRepo>();
+            //people repository
+            services.AddScoped<IPeopleRepo, PeopleRepo>();
+            //db context
             services.AddDbContext<TodoContext>(options => options.UseNpgsql(Configuration.GetConnectionString("TodoConnection")));
         }
 

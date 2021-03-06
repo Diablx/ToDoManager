@@ -35,7 +35,17 @@ namespace TodoManager.Data
             throw new NotImplementedException();
         }
 
-        bool ITodoRepo.SaveChanges()
+        bool ITodoRepo.RepoSaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ITodoRepo.RepoSaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        Task ITodoRepo.RepoUpdate(int id)
         {
             throw new NotImplementedException();
         }

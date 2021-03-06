@@ -41,9 +41,24 @@ namespace TodoManager.Data
             return;
         }
 
-        public bool SaveChanges()
+        public bool RepoSaveChanges()
         {
             return (_context.SaveChanges() >= 0);
+        }
+
+        public async Task RepoSaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RepoUpdate(int id)
+        {
+            var entity = await _context.TodoTasks.FirstOrDefaultAsync(t => t.ID == id);
+            if(entity != null)
+            {
+                entity.IsCompleted = true;
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
